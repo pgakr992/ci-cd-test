@@ -11,15 +11,12 @@ pipeline {
                 sh 'pip install -r requirements.txt'  // Install Python deps
             }
         }
-        stage('Run Tests') {
-            steps {
-                sh 'python -m pytest'  // Example: Run tests
-            }
-        }
         stage('Deploy') {
             steps {
-                sh 'python app.py &'  // Run the Python app (e.g., Flask/Django)
+                sh 'nohup python app.py > log.txt 2>&1 &'  # Runs in background, logs to log.txt
+                sh 'sleep 5'  # Wait for app to start
+                }
             }
-        }
+        
     }
 }

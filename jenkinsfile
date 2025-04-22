@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/your-username/repo-name.git'
+            }
+        }
+        stage('Install Dependencies') {
+            steps {
+                sh 'pip install -r requirements.txt'  // Install Python deps
+            }
+        }
+        stage('Run Tests') {
+            steps {
+                sh 'python -m pytest'  // Example: Run tests
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh 'python app.py &'  // Run the Python app (e.g., Flask/Django)
+            }
+        }
+    }
+}

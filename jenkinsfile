@@ -1,22 +1,23 @@
 pipeline {
     agent any
+
     stages {
-        stage('Checkout') {
+        stage('Clone') {
             steps {
-                git 'https://github.com/your-username/repo-name.git'
+                git 'https://github.com/pgakr992/ci-cd-test.git'
             }
         }
+
         stage('Install Dependencies') {
             steps {
-                sh 'pip install -r requirements.txt'  // Install Python deps
+                sh 'pip install flask'
             }
         }
-        stage('Deploy') {
+
+        stage('Run App') {
             steps {
-                sh 'nohup python app.py > log.txt 2>&1 &'  # Runs in background, logs to log.txt
-                sh 'sleep 5'  # Wait for app to start
-                }
+                sh 'nohup python3 app.py &'
             }
-        
+        }
     }
 }
